@@ -25,7 +25,7 @@ router
     .delete(deleteUser);
 
 //Set up POST new friend and DELETE friend to/from user's friend list
-router.route("/users/:userId")
+router.route("/users/:userId/friends/:friendId")
     .post(addFriend)
     .delete(removeFriend)
 
