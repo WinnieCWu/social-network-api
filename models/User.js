@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
-const dateFormat = require("../utils/dateFormat");
-import {isEmail} from 'validator';
-//or import isEmail from 'validator/lib/isEmail';
+// import {isEmail} from 'validator';
+// //or import isEmail from 'validator/lib/isEmail';
 
 const UserSchema = new Schema(
     {
@@ -15,19 +14,23 @@ const UserSchema = new Schema(
             type: String, 
             unique: true, 
             required: true,
-            validate: [isEmail, 'invalid email']  
+            // validate: [isEmail, 'invalid email']  
             //must match valid email address using Mongoose matching validation
         },
-        thoughts: { 
+        thoughts: [
+            {
             //[ _id values referencing Thought model]
-            _id: ObjectId(reactionId),
+            type: Schema.Types.ObjectId,
             ref: 'Thought'
-        }, 
-        friends: {
+            }
+        ], 
+        friends: [
+            {
             //[ _id values referencing the User model (self-reference)]
-            _id: ObjectId(User),
+            type: Schema.Types.ObjectId,
             ref: 'User'
-        }
+            }
+        ], 
     },
     {
         toJSON: {
