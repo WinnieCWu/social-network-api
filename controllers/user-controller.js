@@ -10,7 +10,7 @@ const userController = {
             res.sendStatus(400);
         });
     },
-    // get one user by id
+    // get one user by its id
     getUserById(req, res) {
         User.findOne({_id: params.id})
         .then(dbUserData => {
@@ -57,7 +57,7 @@ const userController = {
     addFriend({params, body}, res) {
         User.findOneAndUpdate(
             { _id: params.friendId },
-            { $push: { replies: body } },
+            { $push: { friend: body } },
             { new: true}
         )
         .then((dbUserData) => {
