@@ -12,7 +12,7 @@ app.use(express.static("public"));
 //tells Mongoose which db to connect to (ie Heroku; else, will be to local route)
 mongoose.connect(
   process.env.MONGODB_URI ||
-    "mongodb://localhost:3001/social-network-api", 
+    "mongodb://localhost/social-network-api", 
     {
       useNewUrlParser: true,
       useUnifiedTopology: true

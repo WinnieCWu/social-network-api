@@ -4,7 +4,7 @@ const thoughtController = {
     //get all thoughts
     getAllThoughts(req,res) {
         Thought.find({})
-        .then(dbThoughtData => res.json(dbThoughtData))
+        .then(dbThoughtData => {res.json(dbThoughtData)})
         .catch(err => {
             console.log(err);
             res.sendStatus(400);
@@ -21,13 +21,13 @@ const thoughtController = {
             }
             res.json(dbThoughtData);
         })
-        .catch(err => res.json(err));
+        .catch(err => {res.json(err)});
     },
     //create new thought 
     createThought({body}, res) {
         Thought.create(body)
-        .then(dbThoughtData => res.json(dbThoughtData))
-        .catch(err => res.json(err))
+        .then(dbThoughtData => {res.json(dbThoughtData)})
+        .catch((err) => {res.json(err)});
     },
     //update thought from db
     updateThought({params, body}, res) {
@@ -39,13 +39,13 @@ const thoughtController = {
             }
             res.json(dbThoughtData);
         })
-        .catch(err => res.json(err));
+        .catch((err) => {res.json(err)});
     },
     //delete thought from db
     deleteThought({params}, res) {
         Thought.findOneAndDelete({ _id: params.id })
-        .then(dbThoughtData => res.json(dbThoughtData))
-        .catch(err => res.json(err))
+        .then(dbThoughtData => {res.json(dbThoughtData)})
+        .catch((err) => {res.json(err)});
     },
     //create reaction
     createReaction({params, body}, res) {
@@ -61,7 +61,7 @@ const thoughtController = {
             }
             res.json(dbThoughtData);
         })
-        .catch(err => res.json(err));
+        .catch((err) => {res.json(err)});
     },
     //remove reaction
     removeReaction({params}, res) {
@@ -70,8 +70,8 @@ const thoughtController = {
             { $pull: { reactions: {reactionId: params.reactionId} } },
             { new: true}
         )
-        .then(dbThoughtData => res.json(dbThoughtData))
-        .catch(err => res.json(err))
+        .then(dbThoughtData => {res.json(dbThoughtData)})
+        .catch((err) => {res.json(err)});
     }
 };
 

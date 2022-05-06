@@ -14,14 +14,14 @@ const {
 router
     .route('/')
     .get(getAllThoughts)
-    .post(createThought);
 
 // Set up GET one, PUT, and DELETE at /api/thoughts/:id
 router
     .route('/:id')
     .get(getThoughtById)
+    .post(createThought)
     .put(updateThought)
-    .delete(deleteThought);
+    .delete(deleteThought)
 
 //Set up POST new reaction to thought's reaction array
 router.route("/thoughts/:thoughtId/reactions")

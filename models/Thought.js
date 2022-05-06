@@ -1,6 +1,30 @@
 const { Schema, model } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 
+const ReactionSchema = new Schema (
+    {
+        reactionId: { 
+            type: Schema.Types.ObjectId,
+            default: () => new Types.ObjectId()
+        },
+        reactionBody: { 
+            type: String,
+            required: true,
+            //280 character minimum
+            min: 280
+        },
+        username: {
+            type: String, 
+            required: true
+        },
+        createdAt: { 
+            type: Date,
+            default: Date.now,
+            get: (createdAtVal) => dateFormat(createdAtVal)
+        }
+    })
+
+
 const ThoughtSchema = new Schema(
     {
         thoughtText: {
@@ -21,29 +45,7 @@ const ThoughtSchema = new Schema(
             required: true
         },
         //use ReactionSchema to validate data for thought reactions, like replies
-        // reactions: [ReactionSchema]
-        reactions: ReactionSchema = new Schema (
-            {
-                reactionId: { 
-                    type: Schema.Types.ObjectId,
-                    default: () => new Types.ObjectId()
-                },
-                reactionBody: { 
-                    type: String,
-                    required: true,
-                    //280 character minimum
-                    min: 280
-                },
-                username: {
-                    type: String, 
-                    required: true
-                },
-                createdAt: { 
-                    type: Date,
-                    default: Date.now,
-                    get: (createdAtVal) => dateFormat(createdAtVal)
-                }
-            })
+        reactions: [ReactionSchema]
     },
     {
         toJSON: {
@@ -52,32 +54,6 @@ const ThoughtSchema = new Schema(
         }
     }
 );
-
-//Will be used as the reaction field's subdocument schema in Thought model
-////must be accessed after initialization
-// const ReactionSchema = new Schema(
-//     {
-//         reactionId: { 
-//             type: Schema.Types.ObjectId,
-//             default: () => new Types.ObjectId()
-//         },
-//         reactionBody: { 
-//             type: String,
-//             required: true,
-//             //280 character minimum
-//             min: 280
-//         },
-//         username: {
-//             type: String, 
-//             required: true
-//         },
-//         createdAt: { 
-//             type: Date,
-//             default: Date.now,
-//             get: (createdAtVal) => dateFormat(createdAtVal)
-//         }
-//     }
-// );
 
 //Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query results
 ThoughtSchema.virtual("reactionCount").get(function () {
