@@ -13,7 +13,7 @@ const userController = {
       });
   },
   // get one user by its id
-  getUserById(req, res) {
+  getUserById({params}, res) {
     User.findOne({ _id: params.id })
       .then((dbUserData) => {
         //if no user is found, send 404

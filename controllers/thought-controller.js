@@ -11,7 +11,7 @@ const thoughtController = {
         });
     },
     //get one thought by its id
-    getThoughtById(req,res) {
+    getThoughtById({params},res) {
         Thought.findOne({_id: params.id})
         .then(dbThoughtData => {
             //if no thought is found, send 404
