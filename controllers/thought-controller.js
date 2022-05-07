@@ -49,6 +49,8 @@ const thoughtController = {
     },
     //create reaction
     createReaction({params, body}, res) {
+        console.log(params);
+        console.log(body);
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
             { $push: { reactions: body } },
@@ -65,14 +67,20 @@ const thoughtController = {
     },
     //remove reaction
     removeReaction({params}, res) {
+        console.log(params);
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
-            { $pull: { reactions: {reactionId: params.reactionId} } },
+            { $pull: { reactions: {_id: params.reactionId } } },
             { new: true}
         )
-        .then(dbThoughtData => {res.json(dbThoughtData)})
-        .catch((err) => {res.json(err)});
-    }
+        .then(dbThoughtData => {
+            console.log(dbThoughtData);
+            res.json(dbThoughtData)
+        })
+        .catch((err) => {
+            res.json(err)
+        });
+    },
 };
 
 module.exports = thoughtController;

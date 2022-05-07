@@ -24,11 +24,11 @@ router
     .delete(deleteThought)
 
 //Set up POST new reaction to thought's reaction array
-router.route("/thoughts/:thoughtId/reactions")
+router.route("/:thoughtId/reactions")
     .post(createReaction)
     
 //Set up DELETE reaction by reaction's reactionId value
-router.route("/thoughts/:thoughtId/:reactionId")
+router.route("/:thoughtId/reactions/:reactionId")
     .delete(removeReaction)
 
 module.exports = router;
